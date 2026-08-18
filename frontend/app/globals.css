@@ -1,1 +1,151 @@
 @import "tailwindcss";
+
+/* Default Fonts For Project */
+/* Heading -> Sora(Google Fonts) */
+/* Body and ui elements -> Inter(Google Fonts) */
+/* Additional Font(Mono) -> JetBrains_Mono(Google Fonts) */
+/* All Fonts Setup in layout.tsx from Next.js Optimized Google Fonts */
+
+/* Setup Project Variables */
+:root {
+  /* Base Colors */
+
+  /* Brand : Electric Blue */
+  --primary: 59 130 246;
+  --primary-foreground: 255 255 255;
+
+  /* Backgrounds */
+  --background: 9 10 13;
+  --surface: 13 15 19;
+  --surface-elevated: 20 23 29;
+  --surface-hover: 26 30 38;
+
+  /* Foreground */
+  --foreground: 245 247 250;
+  --foreground-secondary: 150 157 170;
+  --foreground-muted: 98 106 120;
+
+  /* Borders */
+  --border: 37 42 51;
+  --border-subtle: 25 28 34;
+
+  /* Accent */
+  --accent: 59 130 246;
+
+  /* Text */
+  --text-primary: 245 247 250;
+  --text-secondary: 150 157 170;
+  --text-muted: 98 106 120;
+
+  /* Semantic Colors */
+
+  /* Supporting : Emerald Below */
+  --emerald: 16 185 129;
+  /* Supporting : Emerald Above */
+
+  --destructive: 239 68 68;
+  --destructive-foreground: 254 202 202;
+
+  --success: 34 197 94;
+  --success-foreground: 187 247 208;
+
+  --warning: 245 148 11;
+  --warning-foreground: 254 215 170;
+
+  --destructive-bg: rgb(var(--destructive) / 10%);
+  --destructive-border: rgb(var(--destructive) / 40%);
+
+  --success-bg: rgb(var(--success) / 10%);
+  --success-border: rgb(var(--success) / 40%);
+
+  --warning-bg: rgb(var(--warning) / 10%);
+  --warning-border: rgb(var(--warning) / 40%);
+
+  /* Typography(Sizes) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+
+  /* Radius */
+  --ui-radius: 0.75rem;
+
+  --ui-radius-sm: calc(var(--ui-radius) - 4px);
+  --ui-radius-md: calc(var(--ui-radius) - 2px);
+  --ui-radius-lg: var(--ui-radius);
+  --ui-radius-xl: calc(var(--ui-radius) + 4px);
+  --ui-radius-2xl: calc(var(--ui-radius) + 8px);
+
+
+  /* Page Container */
+  --container-max: 1440px;
+  --container-padding: 1.5rem;
+}
+
+/* Configure Colors To Tailwind Theme */
+@theme {
+  /* Brand Color */
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+
+  /* Background */
+  --color-background: rgb(var(--background));
+  --color-surface: rgb(var(--surface));
+  --color-surface-elevated: rgb(var(--surface-elevated));
+  --color-surface-hover: rgb(var(--surface-hover));
+
+  /* Foreground */
+  --color-foreground: rgb(var(--foreground));
+  --color-foreground-secondary: rgb(var(--foreground-secondary));
+  --color-foreground-muted: rgb(var(--foreground-muted));
+
+  /* Border */
+  --color-border: rgb(var(--border));
+  --color-border-subtle: rgb(var(--border-subtle));
+
+  /* Accent */
+  --color-acent: rgb(var(--accent));
+
+  /* Text */
+  --color-text-primary: rgb(var(--text-primary));
+  --color-text-secondary: rgb(var(--text-secondary));
+  --color-text-muted: rgb(var(--text-muted));
+
+  /* Colors */
+  --color-destructive: rgb(var(--destructive));
+  --color-success: rgb(var(--success));
+  --color-warning: rgb(var(--warning));
+
+  /* Typography */
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-sora);
+  --font-mono: var(--font-jetbrains);
+
+  /* Radius */
+  --radius-sm: var(--ui-radius-sm);
+  --radius-md: var(--ui-radius-md);
+  --radius-lg: var(--ui-radius-lg);
+  --radius-xl: var(--ui-radius-xl);
+  --radius-2xl: var(--ui-radius-2xl);
+}
+
+/* Configure HTML, Body */
+html,
+body {
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+
+  ::selection {
+    background: rgb(var(--accent) / 25%);
+    color: rgb(var(--foreground));
+  }
+}

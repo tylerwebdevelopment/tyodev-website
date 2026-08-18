@@ -1,28 +1,18 @@
 'use client';
-import { useState } from "react";
-
-type BackendResponse = {
-  success: boolean;
-  message: string;
-}
+import { ArrowRightIcon } from "@phosphor-icons/react";
+import Container from "./components/layout/Container";
+import Section from "./components/layout/Section";
+import { Button } from "./components/ui/Button/Button";
 
 export default function Home() {
-  const [api, setApi] = useState<BackendResponse | null>(null);
-  const callBackend = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/health`,
-      {
-        cache: "no-store",
-      },
-    );
-
-    const data = await response.json(); 
-    if(data) setApi(data);
-  };
   return (
-    <div>
-      {api && <p>{api.message}</p>}
-      <button onClick={() => callBackend()}>Test Backend</button>
-    </div>
+    <main>
+      <Section>
+        <Container>
+          {/* Hero Content */}
+          <Button iconPosition="right" icon={<ArrowRightIcon />}>Continue </Button>
+        </Container>
+      </Section>
+    </main>
   );
 }
