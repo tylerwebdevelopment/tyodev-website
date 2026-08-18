@@ -4,6 +4,8 @@ import styles from "./Button.module.css";
 // Import cva
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import { useInteractiveFill } from "./useInteractiveFill";
+import mergeRefs from "@/lib/mergeRefs";
 
 const buttonVariants = cva(
   [
@@ -13,9 +15,12 @@ const buttonVariants = cva(
     "tracking-wide",
     "whitespace-nowrap",
     "hover:cursor-pointer",
+    "relative overflow-hidden",
+    "group",
     // Transitions
     "transition-colors",
     "transition-[box-shadow]",
+    "transition-shadow",
     "duration-200",
     // Focus
     "focus-visible:outline-none",
@@ -37,9 +42,10 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-primary text-primary-foreground hover:bg-primary/90",
         secondary:
-          "border border-border bg-surface text-foreground hover:bg-surface-hover",
+          "border border-border bg-surface text-foreground hover:bg-surface-hover focus:ring-primary/30",
         ghost:
-          "text-foreground-secondary hover:bg-surface-hover hover:text-foreground",
+          "text-foreground-secondary hover:bg-surface-hover hover:text-foreground focus:ring-primary/20",
+        outline: "shadow-[inset_0_0_0_2px_rgb(var(--primary))] transition-shadow bg-transparent text-primary",
       },
       size: {
         sm: ["h-9 rounded-md px-3 text-sm", "[&_svg]:size-3.5"],
@@ -62,6 +68,7 @@ export interface ButtonProps
   children?: React.ReactNode;
   iconPosition?: "left" | "right";
   icon?: React.ReactNode;
+  interactiveFill?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -74,20 +81,50 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       iconPosition = "right",
       type = "button",
+      interactiveFill = false,
       ...props
     },
     ref,
   ) => {
+    const {
+      fillRef,
+      buttonRef,
+      contentRef,
+      handlePointerEnter,
+      handlePointerMove,
+      handlePointerLeave,
+    } = useInteractiveFill();
+    const mergedRefs = mergeRefs(ref, buttonRef);
+
+    
     return (
       <button
         type={type}
-        className={cn(buttonVariants({ variant, size }), className, icon && 'gap-1.5')}
+        className={cn(
+          buttonVariants({ variant, size }),
+          className,
+          icon && "gap-1.5",
+          !interactiveFill && variant === 'outline' ? 'hover:bg-primary transition-colors duration-300 hover:text-white!' : null,
+        )}
         {...props}
-        ref={ref}
+        ref={mergedRefs}
+        onPointerEnter={interactiveFill ? handlePointerEnter : undefined}
+        onPointerMove={interactiveFill ? handlePointerMove : undefined}
+        onPointerLeave={interactiveFill ? handlePointerLeave : undefined}
       >
-        {icon && iconPosition === "left" && icon}
-        {children}
-        {icon && iconPosition === "right" && icon}
+        {interactiveFill && variant === 'outline' ?  (
+          <span
+            ref={fillRef}
+            className="absolute pointer-events-none left-0 top-0 size-4 scale-0 rounded-full bg-primary "
+          />
+        ) : null}
+        <span ref={interactiveFill ? contentRef : undefined} className="relative z-10 flex items-center gap-1.5">
+          {icon && iconPosition === "left" && icon}
+
+          {children}
+
+          {icon && iconPosition === "right" && icon}
+        </span>
       </button>
     );
   },

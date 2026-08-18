@@ -10,7 +10,7 @@ export default function Home() {
       <Section>
         <Container>
           {/* Hero Content */}
-          <Button iconPosition="right" icon={<ArrowRightIcon />}>Continue </Button>
+          <Button variant={'outline'} interactiveFill={true} iconPosition="right" icon={<ArrowRightIcon weight="bold" />}>Continue</Button>
         </Container>
       </Section>
     </main>
